@@ -30,6 +30,9 @@ export default abstract class FlyingTargetComponent {
   time: number;
   image: Image = { src1: "", src2: ""};
 
+  private _gh = 85;
+  private _gw = 88;
+
   getFlyingTargetState(): void {
     switch(this.flyingTargetState) {
       case FlyingTargetState.State1:
@@ -47,8 +50,8 @@ export default abstract class FlyingTargetComponent {
     
   calculateBasePosition(currPoint?: Point): [Point, Point] {
     const nextPoint = {
-      X: Math.random() * 80,
-      Y: Math.random() > 0.5 ? 0 : 80
+      X: Math.random() * this._gw,
+      Y: Math.random() > 0.5 ? 0 : this._gh
     }
 
     return [nextPoint, currPoint];
@@ -56,8 +59,8 @@ export default abstract class FlyingTargetComponent {
 
   calculateWallPosition(currPoint?: Point): [Point, Point] {
     const nextPoint = {
-      X: Math.random() > 0.5 ? 0 : 80,
-      Y: Math.random() * 80
+      X: Math.random() > 0.5 ? 0 : this._gw,
+      Y: Math.random() * this._gh
     }
 
     return [nextPoint, currPoint];
