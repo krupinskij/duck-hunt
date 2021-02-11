@@ -67,6 +67,6 @@ export default abstract class FlyingTargetComponent {
   }
 
   calculateTime(speed: number): number {
-    return Math.random() * 100 / speed;
+    return Math.random() * 100 / speed + 0.5;
   } 
 }
