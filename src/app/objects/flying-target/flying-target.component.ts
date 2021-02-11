@@ -1,7 +1,9 @@
-import { animate, state, style, transition, trigger } from "@angular/animations";
 import { Component } from "@angular/core";
+import { animate, state, style, transition, trigger } from "@angular/animations";
+
 import Image from "src/app/shared/models/image";
 import Point from "src/app/shared/models/point";
+
 import FlyingTargetState from "./flying-target.state";
 
 @Component({
@@ -18,7 +20,7 @@ import FlyingTargetState from "./flying-target.state";
     ])
   ]
 })
-export abstract class FlyingTargetComponent {
+export default abstract class FlyingTargetComponent {
 
   flyingTargetState = FlyingTargetState.State1;
 

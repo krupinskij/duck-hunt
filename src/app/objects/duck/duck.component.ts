@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
-import { FlyingTargetComponent } from "../flying-target/flying-target.component";
-
-import DuckConfig from "./duck.config";
-import DuckState from "./duck.state";
-import { getInitPosition } from "src/app/utils/position";
 import Point from "src/app/shared/models/point";
 import Image from "src/app/shared/models/image";
+
+import FlyingTargetComponent from "../flying-target/flying-target.component";
+import DuckConfig from "./duck.config";
+import DuckState from "./duck.state";
 
 @Component({
   selector: 'duck',
@@ -17,7 +16,7 @@ import Image from "src/app/shared/models/image";
     trigger('fly', [
       state('*', style({
           transform: 'translateX({{ X }}vw) translateY({{ Y }}vh)',
-      }), { params: getInitPosition()}),
+      }), { params: { X: 0, Y: 0}}),
       transition(`${DuckState.FlyHorizontally} <=> ${DuckState.FlyVertically}`, animate('{{ time }}s'), { params: { time: '1s'}}),
       transition(`${DuckState.FlyHorizontally} => ${DuckState.Shot}`, animate('{{ time }}s'), { params: { time: '1s'}}),
       transition(`${DuckState.FlyVertically} => ${DuckState.Shot}`, animate('{{ time }}s'), { params: { time: '1s'}}),
@@ -28,7 +27,7 @@ import Image from "src/app/shared/models/image";
     ])
   ]
 })
-export class DuckComponent extends FlyingTargetComponent implements OnInit  {
+export default class DuckComponent extends FlyingTargetComponent implements OnInit  {
 
   duckState = DuckState.FlyHorizontally;
   config = DuckConfig;
