@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 import Image from "src/app/shared/models/image";
@@ -29,6 +29,9 @@ export default abstract class FlyingTargetComponent {
 
   time: number;
   image: Image = { src1: "", src2: ""};
+
+  @Input() id: number;
+  @Output() delete = new EventEmitter<number>();
 
   private _gh = 85;
   private _gw = 88;

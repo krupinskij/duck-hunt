@@ -1,6 +1,7 @@
-<div class="game" (click)="shoot()">
-    <duck></duck>
-    <duck></duck>
-    <duck></duck>
-    <duck></duck>
+<div class="game">
+    <duck 
+        *ngFor="let duck of ducks"
+        [id]="duck.id"
+        (delete)="removeDuck($event)"
+    ></duck>
 </div>

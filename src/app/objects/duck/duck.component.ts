@@ -53,7 +53,7 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
         break;
       case DuckState.Dead:
         if(DuckState.Dead !== param.toState) break;
-        console.log("I'm dead");
+        this.delete.emit(this.id);
         break;
       case DuckState.Flee:
         if(DuckState.Flee !== param.toState) break;

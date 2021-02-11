@@ -1,40 +1,26 @@
-import { Component } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import GameState from "./game.state";
+import { Component, OnInit } from "@angular/core";
+import Level from "../shared/models/level";
+import gameConfig from "./game.config";
 
 @Component({
     selector: 'game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss']
 })
-export class GameComponent {
-  gameSubject = new BehaviorSubject(null);
+export class GameComponent implements OnInit {
 
-  bulletsNumber = 3;
+  gameConfig = gameConfig;
 
-  objects = [
-    {
-      type: 'DUCK',
-      id: 1
-    },
-    {
-      type: 'DUCK',
-      id: 2
-    },
-    {
-      type: 'DUCK',
-      id: 3
-    }
-  ]
+  ducks = [];
 
-  deleteDuck(id: number) {
-    this.objects = this.objects.filter(obj => obj.id !== id);
+  ngOnInit() {
+    const currentLevel = { ...gameConfig.levels[0] };
+
+    this.ducks = Array(currentLevel.targets.ducks).fill(0).map((_, id) => { return {id} });
   }
 
-  shoot() {
-    this.bulletsNumber--;
-    if(this.bulletsNumber >= 0) this.gameSubject.next("Shoot");
-    else this.gameSubject.next(GameState.Lose);
-    
+  removeDuck(id: number) {
+    this.ducks = this.ducks.filter(duck => duck.id !== id);
   }
+
 }

@@ -1,9 +1,14 @@
-const GameConfig = {
-  levels: [
+import Level from "../shared/models/level";
+
+class GameConfig {
+  levels: Level[] = [
     {
-      objects: ["Duck", "Duck"]
+      targets: {
+        ducks: 3
+      },
+      bullets: 5
     }
   ]
 }
 
-export default GameConfig;
+export default new GameConfig();
