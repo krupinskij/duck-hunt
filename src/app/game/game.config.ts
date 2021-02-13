@@ -8,7 +8,9 @@ class GameConfig {
       },
       bullets: 5
     }
-  ]
+  ];
+  height = 65;
+  width = 100;
 }
 
 export default new GameConfig();

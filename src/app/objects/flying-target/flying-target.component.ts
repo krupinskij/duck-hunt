@@ -5,6 +5,7 @@ import Image from "src/app/shared/models/image";
 import Point from "src/app/shared/models/point";
 
 import FlyingTargetState from "./flying-target.state";
+import gameConfig from "../../game/game.config"
 
 @Component({
   template: '',
@@ -33,8 +34,8 @@ export default abstract class FlyingTargetComponent {
   @Input() id: number;
   @Output() delete = new EventEmitter<number>();
 
-  private _gh = 85;
-  private _gw = 88;
+  private _gh = gameConfig.height;
+  private _gw = gameConfig.width - 12;
 
   getFlyingTargetState(): void {
     switch(this.flyingTargetState) {
