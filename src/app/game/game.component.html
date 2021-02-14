@@ -2,7 +2,7 @@
     <duck 
         *ngFor="let duck of batchDucks"
         [id]="duck.id"
-        (delete)="removeDuck($event)"
+        [targetSubject]="targetSubject"
     ></duck>
 
     <panel

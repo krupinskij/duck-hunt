@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 
 import { Target, TargetState } from "src/app/shared/models/target";
 
@@ -7,10 +7,17 @@ import { Target, TargetState } from "src/app/shared/models/target";
     templateUrl: './hit.component.html',
     styleUrls: ['./hit.component.scss']
 })
-export default class HitComponent {
+export default class HitComponent implements OnChanges {
   @Input() ducks: Target[];
+  classes = [];
+  srcs = [];
 
-  class(target: Target) {
+  ngOnChanges() {
+    this.classes = this.ducks.map(duck => this.class(duck));
+    this.srcs = this.ducks.map(duck => this.src(duck));
+  }
+
+  class(target: Target): {} {
     return {
       hit: true,
       active: target.state === TargetState.Active

@@ -6,6 +6,8 @@ import Point from "src/app/shared/models/point";
 
 import FlyingTargetState from "./flying-target.state";
 import gameConfig from "../../game/game.config"
+import { Subject } from "rxjs";
+import { Message, MessageContent, MessageSender } from "src/app/shared/models/message";
 
 @Component({
   template: '',
@@ -32,7 +34,7 @@ export default abstract class FlyingTargetComponent {
   image: Image = { src1: "", src2: ""};
 
   @Input() id: number;
-  @Output() delete = new EventEmitter<number>();
+  @Input() targetSubject: Subject<Message>;
 
   private _gh = gameConfig.height;
   private _gw = gameConfig.width - 12;
@@ -73,4 +75,16 @@ export default abstract class FlyingTargetComponent {
   calculateTime(speed: number): number {
     return Math.random() * 100 / speed + 0.5;
   } 
+
+  deleteMe() {
+    this.targetSubject.next({ id: this.id, sender: MessageSender.Duck, content: MessageContent.DeleteMe })
+  }
+
+  killMe() {
+    this.targetSubject.next({ id: this.id, sender: MessageSender.Duck, content: MessageContent.KillMe })
+  }
+
+  loseMe() {
+    this.targetSubject.next({ id: this.id, sender: MessageSender.Duck, content: MessageContent.LoseMe })
+  }
 }

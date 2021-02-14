@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
+import { filter } from 'rxjs/operators';
 import Level from "../shared/models/level";
+import { Message, MessageContent, MessageSender } from "../shared/models/message";
 import { Target, TargetState } from "../shared/models/target";
 import gameConfig from "./game.config";
 
@@ -19,7 +21,7 @@ export default class GameComponent implements OnInit {
   level: Level;
   allDucks: Target[] = [];
   batchDucks: Target[] = [];
-  duckSubject = new Subject();
+  targetSubject = new Subject<Message>();
 
   private _firstDuck: number;
 
@@ -29,6 +31,8 @@ export default class GameComponent implements OnInit {
     this.level = gameConfig.levels[1];
     this.bullets = this.level.bullets;
     this._firstDuck = -this.level.batch;
+
+    this.handleGame();
 
     this.reloadAllDucks();
     this.reloadBatchDucks();
@@ -59,12 +63,48 @@ export default class GameComponent implements OnInit {
         })
   }
 
+  handleGame() {
+    this.targetSubject.pipe(
+      filter(message => message.sender === MessageSender.Duck)
+    ).subscribe(message => {
+      switch(message.content) {
+        case MessageContent.DeleteMe:
+          this.removeDuck(message.id);
+          break;
+        case MessageContent.KillMe:
+          this.killDuck(message.id);
+          break;
+        case MessageContent.LoseMe:
+          this.loseDuck(message.id);
+          break;
+      }
+    })
+  }
+
   killDuck(id: number) {
-    this.allDucks[id].state = TargetState.Killed;
+    this.allDucks = this.allDucks.map((duck, idx) => {
+      if(id === idx) {
+        return {
+          ...duck,
+          state: TargetState.Killed
+        }
+      }
+
+      return duck;
+    })
   }
 
   loseDuck(id: number) {
-    this.allDucks[id].state = TargetState.Default;
+    this.allDucks = this.allDucks.map((duck, idx) => {
+      if(id === idx) {
+        return {
+          ...duck,
+          state: TargetState.Killed
+        }
+      }
+
+      return duck;
+    })
   }
 
   removeDuck(id: number) {

@@ -47,17 +47,18 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
         break;
       case DuckState.Shot:
         setTimeout(() => this.setDuckState(DuckState.Fall), 1000);
+        this.killMe();
         break;
       case DuckState.Fall:
         setTimeout(() => this.setDuckState(DuckState.Dead));
         break;
       case DuckState.Dead:
         if(DuckState.Dead !== param.toState) break;
-        this.delete.emit(this.id);
+        this.deleteMe();
         break;
       case DuckState.Flee:
         if(DuckState.Flee !== param.toState) break;
-        console.log("I'm away");
+        this.loseMe();
         break;
     }
   }
