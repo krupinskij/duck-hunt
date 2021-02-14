@@ -7,7 +7,7 @@ import gameConfig from "./game.config";
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export default class GameComponent implements OnInit {
 
   gameConfig = gameConfig;
 

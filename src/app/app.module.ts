@@ -1,32 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
-import HitComponent from './info/hit/hit.component';
-import RoundComponent from './info/round/round.component';
-import ScoreComponent from './info/score/score.component';
-import ShotsComponent from './info/shots/shots.component';
-import DuckComponent from './objects/duck/duck.component';
-import { PadPipe } from './shared/pipes/pad.pipe';
+
+import GameModule from './game/game.module';
+import InfoModule from './info/info.module';
+import ObjectModule from './objects/object.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DuckComponent,
-    GameComponent,
-    HitComponent,
-    ScoreComponent,
-    RoundComponent,
-    ShotsComponent,
-    PadPipe
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GameModule,
+    InfoModule,
+    ObjectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
