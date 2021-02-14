@@ -1,6 +1,5 @@
 export default interface Level {
-  targets: {
-    ducks: number;
-  },
+  all: number;
+  batch: number;
   bullets: number;
 }

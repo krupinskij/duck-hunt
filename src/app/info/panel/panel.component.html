@@ -1,8 +1,8 @@
 <div class="panel">
   <div>
-      <round [round]="0"></round>
-      <shots [shots]="3"></shots>
+      <round [round]="round"></round>
+      <shots [shots]="level.bullets"></shots>
   </div>
-  <hit></hit>
+  <hit [ducks]="ducks"></hit>
   <score [score]="0"></score>
 </div>

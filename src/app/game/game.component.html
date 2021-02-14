@@ -1,9 +1,13 @@
 <div class="game">
     <duck 
-        *ngFor="let duck of ducks"
+        *ngFor="let duck of batchDucks"
         [id]="duck.id"
         (delete)="removeDuck($event)"
     ></duck>
 
-    <panel></panel>
+    <panel
+        [round]="round"
+        [level]="level"
+        [ducks]="allDucks"
+    ></panel>
 </div>

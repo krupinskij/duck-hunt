@@ -1,9 +1,9 @@
 <div>HIT</div>
 <div class="hits">
   <img 
-    *ngFor="let hit of hits"
-    class="hit"
-    src="../../../assets/info/white-hit.svg" 
+    *ngFor="let duck of ducks"
+    [ngClass]="class(duck)"
+    [src]="src(duck)" 
     alt="hit"
   >
 </div>
