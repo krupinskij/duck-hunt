@@ -134,8 +134,8 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
     }
     
     return { 
-      src1: `url(assets/${image.src1})`,
-      src2: `url(assets/${image.src2})`
+      src1: `url(assets/duck/${image.src1})`,
+      src2: `url(assets/duck/${image.src2})`
     }
   }
 }

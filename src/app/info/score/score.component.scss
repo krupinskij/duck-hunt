@@ -1,0 +1,6 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/colors.scss';
+
+:host {
+  @include info($color-info-white);
+}

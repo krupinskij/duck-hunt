@@ -4,16 +4,21 @@
   background-color: #96d9ff;
   position: absolute;
   overflow: hidden;
-  cursor: url(../../assets/crosshair_big.cur) 58 58, url(../../assets/crosshair_small.cur) 15 15, default;
+  cursor: url(../../assets/crosshair/crosshair_big.cur) 58 58, url(../../assets/crosshair/crosshair_small.cur) 15 15, default;
 }
 
-.grass {
+.info {
   width: 100%;
   height: 35vh;
-  background-image: url(../../assets/grass.png);
+  background-image: url(../../assets/grass/grass.png);
   background-size: auto 35vh;
   background-repeat: repeat;
 
   position: absolute;
   bottom: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
 }

@@ -1,0 +1,16 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/colors.scss';
+
+:host {
+  @include info($color-info-white);
+}
+
+.hits {
+  display: flex;
+  flex-direction: row;
+}
+
+.hit {
+  height: 24px;
+  margin: 2px;
+}

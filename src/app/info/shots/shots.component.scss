@@ -1,0 +1,17 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/colors.scss';
+
+:host {
+  @include info($color-info-blue);
+}
+
+.bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+}
+
+.bullet {
+  height: 24px;
+  margin: 2px;
+}
