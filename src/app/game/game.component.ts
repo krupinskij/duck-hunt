@@ -14,6 +14,8 @@ export default class GameComponent implements OnInit {
   gameConfig = gameConfig;
 
   round: number;
+  score: number;
+  bullets: number;
   level: Level;
   allDucks: Target[] = [];
   batchDucks: Target[] = [];
@@ -23,9 +25,11 @@ export default class GameComponent implements OnInit {
 
   ngOnInit() {
     this.round = 1;
+    this.score = 0;
     this.level = gameConfig.levels[1];
+    this.bullets = this.level.bullets;
     this._firstDuck = -this.level.batch;
-    
+
     this.reloadAllDucks();
     this.reloadBatchDucks();
   }

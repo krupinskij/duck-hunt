@@ -8,7 +8,8 @@ import { Target } from "src/app/shared/models/target";
     styleUrls: ['./panel.component.scss']
 })
 export default class PanelComponent {
-    @Input() round: number;
-    @Input() level: Level;
+    @Input() bullets: number;
     @Input() ducks: Target[];
+    @Input() score: number;
+    @Input() round: number;
 }
