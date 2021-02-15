@@ -169,4 +169,8 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
       }
     })
   }
+
+  get pointsVisible(): boolean {
+    return this.duckState === DuckState.Shot;
+  }
 }

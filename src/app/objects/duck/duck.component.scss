@@ -1,7 +1,16 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fonts.scss";
+
 .duck {
   width: 12vw;
   height: 15vh;
   position: absolute;
   background-repeat: no-repeat;
   background-size: 12vw 15vh;
+
+  .points {
+    font-family: $font-press-start;
+    color: $color-white;
+    font-size: 20px;
+  }
 }

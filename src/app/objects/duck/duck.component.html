@@ -6,4 +6,8 @@
   [@changeImage]="{value: flyingTargetState, params: image}"
   (@changeImage.done)="getFlyingTargetState()"
 >
+  <div 
+    class="points"
+    *ngIf="pointsVisible"
+  >{{ config.points }}</div>
 </div>

@@ -1,4 +1,5 @@
 @import "./colors.scss";
+@import "./fonts.scss";
 
 @mixin info($text-color) {
   display: flex;
@@ -6,13 +7,13 @@
   align-items: flex-start;
   gap: 3px;
 
-  background-color: $color-info-background;
+  background-color: $color-black;
   color: $text-color;
-  border: 5px solid $color-info-border;
+  border: 5px solid $color-green;
   border-radius: 10px;
   font-size: 24px;
   padding: 5px;
   margin: 15px;
 
-  font-family: 'Press Start 2P', cursive;
+  font-family: $font-press-start;
 }

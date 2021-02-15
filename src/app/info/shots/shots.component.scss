@@ -2,7 +2,7 @@
 @import '../../styles/colors.scss';
 
 :host {
-  @include info($color-info-blue);
+  @include info($color-blue);
 }
 
 .bullets {
