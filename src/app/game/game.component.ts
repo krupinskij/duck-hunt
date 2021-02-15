@@ -53,6 +53,13 @@ export default class GameComponent implements OnInit {
 
   reloadBatchDucks() {
     this._firstDuck += this.level.batch;
+
+    if(this._firstDuck >= this.level.all) {
+      this.reloadAllDucks();
+      this._firstDuck = 0;
+      this.round++;
+    }
+
     this.bullets = this.level.bullets;
     this.batchDucks = this.allDucks.slice(this._firstDuck, this._firstDuck + this.level.batch);
     this.allDucks = this.allDucks
