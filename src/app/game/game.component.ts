@@ -121,7 +121,8 @@ export default class GameComponent implements OnInit {
     })
   }
 
-  killDuck(id: number) {
+  killDuck({ id, points }) {
+    setTimeout(() => { this.score += points });
     this.allDucks = this.allDucks.map((duck, idx) => {
       if(id === idx) {
         return {

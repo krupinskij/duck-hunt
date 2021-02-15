@@ -86,16 +86,6 @@ export default abstract class FlyingTargetComponent {
     })
   }
 
-  killMe() {
-    this.communicator.next({ 
-      sender: MessageSender.Duck, 
-      payload: {
-        action: MessageAction.KillDuck,
-        state: this.id
-      }
-    })
-  }
-
   loseMe() {
     this.communicator.next({ 
       sender: MessageSender.Duck, 

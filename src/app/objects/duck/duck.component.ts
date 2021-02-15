@@ -156,4 +156,17 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
       }
     })
   }
+
+  killMe() {
+    this.communicator.next({ 
+      sender: MessageSender.Duck, 
+      payload: {
+        action: MessageAction.KillDuck,
+        state: {
+          id: this.id,
+          points: this.config.points
+        }
+      }
+    })
+  }
 }
