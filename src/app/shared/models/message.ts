@@ -1,16 +1,21 @@
 export enum MessageSender {
-  Duck,
-  Game
+  Duck = "Sender_Duck",
+  Game = "Sender_Game"
 }
 
-export enum MessageContent {
-  DeleteMe,
-  KillMe,
-  LoseMe
+export enum MessageAction {
+  KillDuck = "Action_KillDuck",
+  LoseDuck = "Action_LoseDuck",
+  RemoveDuck = "Action_RemoveDuck",
+  NoBullets = "Action_NoBullets"
+}
+
+interface MessagePayload {
+  action: MessageAction,
+  state: any
 }
 
 export interface Message {
-  id?: number;
   sender: MessageSender,
-  content: MessageContent
+  payload: MessagePayload
 }

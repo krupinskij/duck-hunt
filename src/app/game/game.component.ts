@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
+import { Subject, fromEvent } from "rxjs";
 import { filter } from 'rxjs/operators';
 import Level from "../shared/models/level";
-import { Message, MessageContent, MessageSender } from "../shared/models/message";
+import { Message, MessageAction, MessageSender } from "../shared/models/message";
 import { Target, TargetState } from "../shared/models/target";
+import { getIdFromEvent } from "../utils/events";
 import gameConfig from "./game.config";
 
 @Component({
@@ -21,7 +22,9 @@ export default class GameComponent implements OnInit {
   level: Level;
   allDucks: Target[] = [];
   batchDucks: Target[] = [];
-  targetSubject = new Subject<Message>();
+
+  communicator = new Subject<Message>();
+  clickObserver = fromEvent(document, 'click');
 
   private _firstDuck: number;
 
@@ -32,7 +35,8 @@ export default class GameComponent implements OnInit {
     this.bullets = this.level.bullets;
     this._firstDuck = -this.level.batch;
 
-    this.handleGame();
+    this.handleEvents();
+    this.handleCommunicator();
 
     this.reloadAllDucks();
     this.reloadBatchDucks();
@@ -49,6 +53,7 @@ export default class GameComponent implements OnInit {
 
   reloadBatchDucks() {
     this._firstDuck += this.level.batch;
+    this.bullets = this.level.bullets;
     this.batchDucks = this.allDucks.slice(this._firstDuck, this._firstDuck + this.level.batch);
     this.allDucks = this.allDucks
         .map((duck, id) => {
@@ -63,19 +68,54 @@ export default class GameComponent implements OnInit {
         })
   }
 
-  handleGame() {
-    this.targetSubject.pipe(
+  handleEvents() {
+    this.clickObserver.pipe(
+      filter(() => this.bullets > 0)
+    ).subscribe(clickEvent => {
+      this.bullets--;
+
+      const id = getIdFromEvent(clickEvent);
+      if(id) {
+        this.communicator.next({
+          sender: MessageSender.Game,
+          payload: { 
+            action: MessageAction.KillDuck, 
+            state: [ +id ] 
+          }
+        })
+      }
+
+      if(this.bullets === 0) {
+        this.communicator.next({
+          sender: MessageSender.Game,
+          payload: { 
+            action: MessageAction.NoBullets, 
+            state: this.batchDucks.map(duck => duck.id)
+          }
+        })
+      }
+     })
+  }
+
+  handleCommunicator() {
+    let counter = 0;
+    this.communicator.pipe(
       filter(message => message.sender === MessageSender.Duck)
-    ).subscribe(message => {
-      switch(message.content) {
-        case MessageContent.DeleteMe:
-          this.removeDuck(message.id);
+    ).subscribe(({ payload: { action, state }}) => {
+      switch(action) {
+        case MessageAction.RemoveDuck:
+          this.removeDuck(state);
+          counter++;
+          if(counter === this.level.batch) {
+            counter = 0;
+            this.reloadBatchDucks();
+          }
           break;
-        case MessageContent.KillMe:
-          this.killDuck(message.id);
+        case MessageAction.KillDuck:
+          this.killDuck(state);
           break;
-        case MessageContent.LoseMe:
-          this.loseDuck(message.id);
+        case MessageAction.LoseDuck:
+          this.loseDuck(state);
           break;
       }
     })
@@ -99,7 +139,7 @@ export default class GameComponent implements OnInit {
       if(id === idx) {
         return {
           ...duck,
-          state: TargetState.Killed
+          state: TargetState.Default
         }
       }
 
@@ -110,5 +150,4 @@ export default class GameComponent implements OnInit {
   removeDuck(id: number) {
     this.batchDucks = this.batchDucks.filter(duck => duck.id !== id);
   }
-
 }

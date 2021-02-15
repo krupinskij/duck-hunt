@@ -7,6 +7,8 @@ import Image from "src/app/shared/models/image";
 import FlyingTargetComponent from "../flying-target/flying-target.component";
 import DuckConfig from "./duck.config";
 import DuckState from "./duck.state";
+import { filter } from "rxjs/operators";
+import { MessageAction, MessageSender } from "src/app/shared/models/message";
 
 @Component({
   selector: 'duck',
@@ -35,6 +37,8 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
   ngOnInit() {
     [this.nextPoint] = this.calculateWallPosition();
     this.time = this.calculateTime(this.config.speed);
+
+    this.handleCommunicator();
   }
 
   getDuckState(param: any) {
@@ -57,8 +61,8 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
         this.deleteMe();
         break;
       case DuckState.Flee:
-        if(DuckState.Flee !== param.toState) break;
-        this.loseMe();
+        if(DuckState.Flee !== param.toState) this.loseMe();
+        else this.deleteMe();
         break;
     }
   }
@@ -95,10 +99,6 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
           this.nextPoint = { X: 50, Y: -50};
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
       }
-  }
-
-  getBullet(): void {
-    this.setDuckState(DuckState.Shot);
   }
 
   setImage(prevPoint: Point, nextPoint: Point, state: DuckState): Image {
@@ -138,5 +138,22 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
       src1: `url(assets/duck/${image.src1})`,
       src2: `url(assets/duck/${image.src2})`
     }
+  }
+
+  handleCommunicator() {
+    this.communicator.pipe(
+      filter(message => message.sender === MessageSender.Game),
+      filter(message => message.payload.state.includes(this.id)),
+      filter(() => [DuckState.FlyHorizontally, DuckState.FlyVertically].includes(this.duckState))
+    ).subscribe(message => {
+      switch(message.payload.action) {
+        case MessageAction.KillDuck:
+          this.setDuckState(DuckState.Shot);
+          break;
+        case MessageAction.NoBullets:
+          this.setDuckState(DuckState.Flee);
+          break;
+      }
+    })
   }
 }
