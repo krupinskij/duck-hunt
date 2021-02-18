@@ -2,5 +2,6 @@
 @import '../../styles/colors.scss';
 
 :host {
-  @include info($color-white);
+  @include right-align();
+  @include info-box($color-white);
 }

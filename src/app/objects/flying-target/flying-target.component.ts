@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 import Image from "src/app/shared/models/image";
@@ -8,6 +8,8 @@ import FlyingTargetState from "./flying-target.state";
 import gameConfig from "../../game/game.config"
 import { Subject } from "rxjs";
 import { Message, MessageAction, MessageSender } from "src/app/shared/models/message";
+import { Communicator } from "src/app/utils/communicator";
+import { TargetCommunicator } from "src/app/utils/target-communicator";
 
 @Component({
   template: '',
@@ -23,7 +25,7 @@ import { Message, MessageAction, MessageSender } from "src/app/shared/models/mes
     ])
   ]
 })
-export default abstract class FlyingTargetComponent {
+export default abstract class FlyingTargetComponent implements OnInit {
 
   flyingTargetState = FlyingTargetState.State1;
 
@@ -34,10 +36,16 @@ export default abstract class FlyingTargetComponent {
   image: Image = { src1: "", src2: ""};
 
   @Input() id: number;
-  @Input() communicator: Subject<Message>;
+  @Input() messanger: Subject<Message>;
+
+  communicator: TargetCommunicator;
 
   private _gh = gameConfig.height;
   private _gw = gameConfig.width - 12;
+
+  ngOnInit() {
+    this.communicator = new TargetCommunicator(this.messanger, this.id);
+  }
 
   getFlyingTargetState(): void {
     switch(this.flyingTargetState) {
@@ -74,25 +82,5 @@ export default abstract class FlyingTargetComponent {
 
   calculateTime(speed: number): number {
     return Math.random() * 100 / speed + 0.5;
-  } 
-
-  deleteMe() {
-    this.communicator.next({ 
-      sender: MessageSender.Duck, 
-      payload: {
-        action: MessageAction.RemoveDuck,
-        state: this.id
-      }
-    })
-  }
-
-  loseMe() {
-    this.communicator.next({ 
-      sender: MessageSender.Duck, 
-      payload: {
-        action: MessageAction.LoseDuck,
-        state: this.id
-      }
-    })
   }
 }

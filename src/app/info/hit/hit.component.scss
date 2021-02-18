@@ -2,7 +2,8 @@
 @import '../../styles/colors.scss';
 
 :host {
-  @include info($color-white);
+  @include left-align();
+  @include info-box($color-white);
 }
 
 .hits {

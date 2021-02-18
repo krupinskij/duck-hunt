@@ -6,6 +6,7 @@ import PanelComponent from './panel/panel.component';
 import RoundComponent from './round/round.component';
 import ScoreComponent from './score/score.component';
 import ShotsComponent from './shots/shots.component';
+import TimerComponent from './timer/timer.component';
 
 import PadPipe from '../shared/pipes/pad.pipe';
 
@@ -16,6 +17,7 @@ import PadPipe from '../shared/pipes/pad.pipe';
     RoundComponent,
     ScoreComponent,
     ShotsComponent,
+    TimerComponent,
     PadPipe
   ],
   imports: [

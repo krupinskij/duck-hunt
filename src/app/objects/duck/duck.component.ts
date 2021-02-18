@@ -7,8 +7,7 @@ import Image from "src/app/shared/models/image";
 import FlyingTargetComponent from "../flying-target/flying-target.component";
 import DuckConfig from "./duck.config";
 import DuckState from "./duck.state";
-import { filter } from "rxjs/operators";
-import { MessageAction, MessageSender } from "src/app/shared/models/message";
+import { Message, MessageAction } from "src/app/shared/models/message";
 
 @Component({
   selector: 'duck',
@@ -35,10 +34,11 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
   config = DuckConfig;
 
   ngOnInit() {
+    super.ngOnInit();
     [this.nextPoint] = this.calculateWallPosition();
     this.time = this.calculateTime(this.config.speed);
 
-    this.handleCommunicator();
+    this.communicator.handleMessanger(this._messangerHandler.bind(this));
   }
 
   getDuckState(param: any) {
@@ -51,18 +51,18 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
         break;
       case DuckState.Shot:
         setTimeout(() => this.setDuckState(DuckState.Fall), 1000);
-        this.killMe();
+        this.communicator.killMe({ points: this.config.points });
         break;
       case DuckState.Fall:
         setTimeout(() => this.setDuckState(DuckState.Dead));
         break;
       case DuckState.Dead:
         if(DuckState.Dead !== param.toState) break;
-        this.deleteMe();
+        this.communicator.deleteMe({});
         break;
       case DuckState.Flee:
-        if(DuckState.Flee !== param.toState) this.loseMe();
-        else this.deleteMe();
+        if(DuckState.Flee !== param.toState) this.communicator.loseMe({});
+        else this.communicator.deleteMe({});
         break;
     }
   }
@@ -140,34 +140,16 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
     }
   }
 
-  handleCommunicator() {
-    this.communicator.pipe(
-      filter(message => message.sender === MessageSender.Game),
-      filter(message => message.payload.state.includes(this.id)),
-      filter(() => [DuckState.FlyHorizontally, DuckState.FlyVertically].includes(this.duckState))
-    ).subscribe(message => {
-      switch(message.payload.action) {
-        case MessageAction.KillDuck:
-          this.setDuckState(DuckState.Shot);
-          break;
-        case MessageAction.NoBullets:
-          this.setDuckState(DuckState.Flee);
-          break;
-      }
-    })
-  }
-
-  killMe() {
-    this.communicator.next({ 
-      sender: MessageSender.Duck, 
-      payload: {
-        action: MessageAction.KillDuck,
-        state: {
-          id: this.id,
-          points: this.config.points
-        }
-      }
-    })
+  private _messangerHandler({ payload: { action }}: Message) {
+    if(![DuckState.FlyHorizontally, DuckState.FlyVertically].includes(this.duckState)) return;
+    switch(action) {
+      case MessageAction.KillDuck:
+        this.setDuckState(DuckState.Shot);
+        break;
+      case MessageAction.LoseDuck:
+        this.setDuckState(DuckState.Flee);
+        break;
+    }
   }
 
   get pointsVisible(): boolean {

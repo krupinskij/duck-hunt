@@ -4,13 +4,14 @@
     <duck
         *ngFor="let duck of batchDucks"
         [id]="duck.id"
-        [communicator]="communicator"
+        [messanger]="communicator.messanger"
     ></duck>
 
     <panel
-        [bullets]="bullets"
+        [bullets]="gun.bullets"
         [ducks]="allDucks"
         [round]="round"
         [score]="score"
+        [timer]="timerClock.timer"
     ></panel>
 </div>
