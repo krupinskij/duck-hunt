@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
-import Level from "../shared/models/level";
-import { Message, MessageAction } from "../shared/models/message";
-import { Target, TargetState } from "../shared/models/target";
-import { GameCommunicator } from "../utils/game-communicator";
-import { Gun } from "../utils/gun";
-import { TimerClock } from "../utils/timer";
+import Level from "../../shared/models/level";
+import { Message, MessageAction } from "../../shared/models/message";
+import { Target, TargetState } from "../../shared/models/target";
+import { GameCommunicator } from "../../utils/game-communicator";
+import { Gun } from "../../utils/gun";
+import { TimerClock } from "../../utils/timer";
 import gameConfig from "./game.config";
 
 @Component({

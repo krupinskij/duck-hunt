@@ -1,4 +1,4 @@
-import Level from "../shared/models/level";
+import Level from "../../shared/models/level";
 
 class GameConfig {
   levels: Level[] = [

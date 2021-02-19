@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 import Image from "src/app/shared/models/image";
@@ -7,8 +7,7 @@ import Point from "src/app/shared/models/point";
 import FlyingTargetState from "./flying-target.state";
 import gameConfig from "../../game/game.config"
 import { Subject } from "rxjs";
-import { Message, MessageAction, MessageSender } from "src/app/shared/models/message";
-import { Communicator } from "src/app/utils/communicator";
+import { Message } from "src/app/shared/models/message";
 import { TargetCommunicator } from "src/app/utils/target-communicator";
 
 @Component({

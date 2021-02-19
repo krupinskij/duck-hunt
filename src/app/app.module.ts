@@ -4,9 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import GameModule from './game/game.module';
-import InfoModule from './info/info.module';
-import ObjectModule from './objects/object.module';
+import GameModule from './components/game/game.module';
+import InfoModule from './components/info/info.module';
+import TargetModule from './components/target/target.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import ObjectModule from './objects/object.module';
     BrowserAnimationsModule,
     GameModule,
     InfoModule,
-    ObjectModule
+    TargetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

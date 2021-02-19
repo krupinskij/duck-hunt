@@ -1,0 +1,7 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+:host {
+  @include left-align();
+  @include info-box($color-white);
+}

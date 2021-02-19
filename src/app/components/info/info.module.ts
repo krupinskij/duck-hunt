@@ -8,7 +8,7 @@ import ScoreComponent from './score/score.component';
 import ShotsComponent from './shots/shots.component';
 import TimerComponent from './timer/timer.component';
 
-import PadPipe from '../shared/pipes/pad.pipe';
+import PadPipe from '../../shared/pipes/pad.pipe';
 
 @NgModule({
   declarations: [

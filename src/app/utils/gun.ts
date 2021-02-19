@@ -1,6 +1,5 @@
 import { fromEvent, Observable } from "rxjs"
 import { filter } from "rxjs/operators";
-import { getIdFromEvent } from "./events";
 
 export class Gun {
   private clickObserver: Observable<Event>;
@@ -23,7 +22,7 @@ export class Gun {
     .subscribe(clickEvent => {
       this._bullets--;
 
-      const id = +getIdFromEvent(clickEvent);
+      const id = this.getIdFromEvent(clickEvent);
       if(typeof id === "number") {
         onShot(id);
       }
@@ -37,5 +36,13 @@ export class Gun {
 
   resetBullets(bullets: number) {
     this._bullets = bullets;
+  }
+
+  private getIdFromEvent(event: Event): number {
+    const eventTarget = event.target as any;
+  
+    if(eventTarget.classList.contains('duck')) {
+      return +eventTarget.id;
+    }
   }
 }

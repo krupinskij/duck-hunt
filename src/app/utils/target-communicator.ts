@@ -28,7 +28,7 @@ export class TargetCommunicator extends Communicator {
     this.send(MessageAction.LoseDuck, state);
   }
 
-  send(action: MessageAction, state: unknown) {
+  protected send(action: MessageAction, state: unknown) {
     this._subject.next({
       sender: MessageSender.Duck, 
       payload: { 

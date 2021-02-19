@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
-import Level from "src/app/shared/models/level";
-import { Target } from "src/app/shared/models/target";
+import { Target } from "../../../shared/models/target";
 
 @Component({
     selector: 'panel',

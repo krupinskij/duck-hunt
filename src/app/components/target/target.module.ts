@@ -14,4 +14,4 @@ import DuckComponent from "./duck/duck.component";
     DuckComponent
   ]
 })
-export default class ObjectModule { }
+export default class TargetModule { }

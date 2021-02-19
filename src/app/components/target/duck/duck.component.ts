@@ -7,7 +7,7 @@ import Image from "src/app/shared/models/image";
 import FlyingTargetComponent from "../flying-target/flying-target.component";
 import DuckConfig from "./duck.config";
 import DuckState from "./duck.state";
-import { Message, MessageAction } from "src/app/shared/models/message";
+import { Message, MessageAction } from "../../../shared/models/message";
 
 @Component({
   selector: 'duck',

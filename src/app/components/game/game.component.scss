@@ -1,0 +1,10 @@
+@import "../../styles/colors.scss";
+
+.game {
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-skyblue;
+  position: absolute;
+  overflow: hidden;
+  cursor: url(../../../assets/crosshair/crosshair_big.cur) 58 58, url(../../../assets/crosshair/crosshair_small.cur) 15 15, default;
+}
