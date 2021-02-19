@@ -12,8 +12,7 @@
 }
 
 .hit {
-  height: 24px;
-  margin: 2px;
+  @include image();
 }
 
 .active {

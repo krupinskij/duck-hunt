@@ -4,11 +4,11 @@
 @mixin info-box($text-color) {
   background-color: $color-black;
   color: $text-color;
-  border: 5px solid $color-green;
-  border-radius: 10px;
-  font-size: 24px;
-  padding: 5px;
-  margin: 15px;
+  border: 0.2vw solid $color-green;
+  border-radius: 0.5vw;
+  font-size: 1.5vw;
+  padding: 0.5vw;
+  margin: 0.5vw;
 
   font-family: $font-press-start;
 }
@@ -17,12 +17,17 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3px;
+  gap: 0.3vw;
 }
 
 @mixin right-align {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 3px;
+  gap: 0.3vw;
+}
+
+@mixin image {
+  height: 1.5vw;
+  margin: 0.2vw;
 }
