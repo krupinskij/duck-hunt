@@ -32,6 +32,7 @@ export default class GameComponent implements OnInit {
   private _killedDucks: number;
   private _deletedDucks: number;
   private _playing: boolean;
+  private _losing: boolean;
 
   ngOnInit() {
     this.level = gameConfig.levels[0];
@@ -62,6 +63,7 @@ export default class GameComponent implements OnInit {
   reloadBatchDucks() {
     this._firstDuck += this.level.batch;
     this._playing = true;
+    this._losing = false;
     this._killedDucks = 0;
     this._deletedDucks = 0;
 
@@ -140,7 +142,19 @@ export default class GameComponent implements OnInit {
         break;
       case MessageAction.LoseDuck:
         this.loseDuck(state);
+        this._playing = false;
+        this._losing = true;
         break;
     }
+  }
+
+  get gameClass(): {} {
+    const obj = {
+      game: true,
+      'game-lose': this._losing,
+      'game-play': !this._losing
+    }
+
+    return obj;
   }
 }

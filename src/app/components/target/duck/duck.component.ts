@@ -61,6 +61,7 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
         this.communicator.deleteMe({});
         break;
       case DuckState.Flee:
+        if(param.toState === "void") break;
         if(DuckState.Flee !== param.toState) this.communicator.loseMe({});
         else this.communicator.deleteMe({});
         break;
