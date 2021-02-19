@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
-import DuckComponent from './objects/duck/duck.component';
+
+import GameModule from './components/game/game.module';
+import InfoModule from './components/info/info.module';
+import TargetModule from './components/target/target.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DuckComponent,
-    GameComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GameModule,
+    InfoModule,
+    TargetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

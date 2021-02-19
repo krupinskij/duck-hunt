@@ -1,0 +1,17 @@
+<div 
+    [ngClass]="gameClass"
+>
+    <duck
+        *ngFor="let duck of batchDucks"
+        [id]="duck.id"
+        [messanger]="communicator.messanger"
+    ></duck>
+
+    <panel
+        [bullets]="gun.bullets"
+        [ducks]="allDucks"
+        [round]="round"
+        [score]="score"
+        [timer]="timerClock.timer"
+    ></panel>
+</div>

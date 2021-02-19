@@ -1,0 +1,18 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+:host {
+  @include left-align();
+  @include info-box($color-white);
+}
+
+.bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  justify-items: center
+}
+
+.bullet {
+  @include image();
+}

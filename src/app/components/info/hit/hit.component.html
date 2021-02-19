@@ -1,0 +1,9 @@
+<div>HIT</div>
+<div class="hits">
+  <img 
+    *ngFor="let duck of ducks; let id = index"
+    [ngClass]="classes[id]"
+    [src]="srcs[id]" 
+    alt="hit"
+  >
+</div>

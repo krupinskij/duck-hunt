@@ -1,0 +1,32 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+:host {
+  @include left-align();
+  @include info-box($color-white);
+}
+
+.hits {
+  display: flex;
+  flex-direction: row;
+}
+
+.hit {
+  @include image();
+}
+
+.active {
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

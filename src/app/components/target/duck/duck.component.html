@@ -1,0 +1,13 @@
+<div
+  [id]="id"
+  class="duck"
+  [@fly]="{value: duckState, params:{ X: nextPoint.X, Y: nextPoint.Y, time: time }}"
+  (@fly.done)="getDuckState($event)"
+  [@changeImage]="{value: flyingTargetState, params: image}"
+  (@changeImage.done)="getFlyingTargetState()"
+>
+  <div 
+    class="points"
+    *ngIf="pointsVisible"
+  >{{ config.points }}</div>
+</div>

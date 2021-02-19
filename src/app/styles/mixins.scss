@@ -1,0 +1,33 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+@mixin info-box($text-color) {
+  background-color: $color-black;
+  color: $text-color;
+  border: 0.2vw solid $color-green;
+  border-radius: 0.5vw;
+  font-size: 1.5vw;
+  padding: 0.5vw;
+  margin: 0.5vw;
+
+  font-family: $font-press-start;
+}
+
+@mixin left-align {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3vw;
+}
+
+@mixin right-align {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3vw;
+}
+
+@mixin image {
+  height: 1.5vw;
+  margin: 0.2vw;
+}
