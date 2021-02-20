@@ -1,21 +1,21 @@
 <div 
-    [ngClass]="gameClass"
+    [ngClass]="gameClasses"
 >
     <dog
         [id]="-1"
         [messanger]="communicator.messanger"
     ></dog>
     <duck
-        *ngFor="let duck of batchDucks"
-        [id]="duck.id"
+        *ngFor="let duck of store.currentBatch"
+        [id]="duck"
         [messanger]="communicator.messanger"
     ></duck>
 
     <panel
         [bullets]="gun.bullets"
-        [ducks]="allDucks"
-        [round]="round"
-        [score]="score"
+        [ducks]="store.allTargets | async"
+        [round]="store.round"
+        [score]="store.score"
         [timer]="timerClock.timer"
     ></panel>
 </div>
