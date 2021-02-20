@@ -3,8 +3,8 @@
   class="duck"
   [@fly]="{value: duckState, params:{ X: nextPoint.X, Y: nextPoint.Y, time: time }}"
   (@fly.done)="getDuckState($event)"
-  [@changeImage]="{value: flyingTargetState, params: image}"
-  (@changeImage.done)="getFlyingTargetState()"
+  [@changeImage]="{value: targetState, params: image}"
+  (@changeImage.done)="getTargetState()"
 >
   <div 
     class="points"

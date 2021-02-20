@@ -10,7 +10,7 @@ export class GameCommunicator extends Communicator {
 
   handleMessanger(_messageHandler: (message: Message) => void) {
     this._subject.pipe(
-      filter(message => message.sender === MessageSender.Duck)
+      filter(message => message.sender === MessageSender.Target)
     ).subscribe(_messageHandler);
   }
 
@@ -20,6 +20,14 @@ export class GameCommunicator extends Communicator {
 
   loseDuck(state: number[]) {
     this.send(MessageAction.LoseDuck, state);
+  }
+
+  getDuck() {
+    this.send(MessageAction.GetDuck, [-1]);
+  }
+
+  laugh() {
+    this.send(MessageAction.Laugh, [-1]);
   }
 
   protected send(action: MessageAction, state: unknown) {

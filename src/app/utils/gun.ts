@@ -41,7 +41,7 @@ export class Gun {
   private getIdFromEvent(event: Event): number {
     const eventTarget = event.target as any;
   
-    if(eventTarget.classList.contains('duck')) {
+    if(eventTarget.classList.contains('duck') || eventTarget.classList.contains('dog')) {
       return +eventTarget.id;
     }
   }

@@ -4,7 +4,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 import Point from "src/app/shared/models/point";
 import Image from "src/app/shared/models/image";
 
-import FlyingTargetComponent from "../flying-target/flying-target.component";
+import TargetComponent from "../target/target.component";
 import DuckConfig from "./duck.config";
 import DuckState from "./duck.state";
 import { Message, MessageAction } from "../../../shared/models/message";
@@ -28,7 +28,7 @@ import { Message, MessageAction } from "../../../shared/models/message";
     ])
   ]
 })
-export default class DuckComponent extends FlyingTargetComponent implements OnInit  {
+export default class DuckComponent extends TargetComponent implements OnInit  {
 
   duckState = DuckState.FlyHorizontally;
   config = DuckConfig;
@@ -36,7 +36,6 @@ export default class DuckComponent extends FlyingTargetComponent implements OnIn
   ngOnInit() {
     super.ngOnInit();
     [this.nextPoint] = this.calculateWallPosition();
-    this.time = this.calculateTime(this.config.speed);
 
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
   }

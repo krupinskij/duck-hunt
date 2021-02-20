@@ -48,7 +48,7 @@ export default class GameComponent implements OnInit {
     )
 
     this.reloadAllDucks();
-    this.reloadBatchDucks();
+    //this.reloadBatchDucks();
   }
 
   reloadAllDucks() {
@@ -122,6 +122,7 @@ export default class GameComponent implements OnInit {
 
   removeDuck({ id }) {
     this.batchDucks = this.batchDucks.filter(duck => duck.id !== id);
+    this.communicator.getDuck();
   }
 
   private _messangerHandler({ payload: { action, state }}: Message) {
@@ -130,7 +131,7 @@ export default class GameComponent implements OnInit {
         this.removeDuck(state);
         this._deletedDucks++;
         if(this._deletedDucks === this.level.batch) {
-          this.reloadBatchDucks();
+          //this.reloadBatchDucks();
         }
         break;
       case MessageAction.KillDuck:
@@ -144,6 +145,9 @@ export default class GameComponent implements OnInit {
         this.loseDuck(state);
         this._playing = false;
         this._losing = true;
+        break;
+      case MessageAction.Reload:
+        this.reloadBatchDucks();
         break;
     }
   }

@@ -1,6 +1,10 @@
 <div 
     [ngClass]="gameClass"
 >
+    <dog
+        [id]="-1"
+        [messanger]="communicator.messanger"
+    ></dog>
     <duck
         *ngFor="let duck of batchDucks"
         [id]="duck.id"

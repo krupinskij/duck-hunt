@@ -1,0 +1,9 @@
+<div
+  [id]="-1"
+  [ngClass]="dogClasses"
+  [@moveDog]="{value: dogState, params:{ X: nextPoint.X, Y: nextPoint.Y, time: time }}"
+  (@moveDog.done)="getDogState($event)"
+  [@changeImage]="{value: targetState, params: image}"
+  (@changeImage.done)="getTargetState()"
+>
+</div>
