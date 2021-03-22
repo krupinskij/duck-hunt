@@ -8,7 +8,6 @@ import { TargetState } from "./target.state";
 import gameConfig from "../../game/game.config"
 import { Subject } from "rxjs";
 import { Message } from "src/app/shared/models/message";
-import { TargetCommunicator } from "src/app/utils/target-communicator";
 
 @Component({
   template: '',
