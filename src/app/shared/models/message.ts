@@ -7,7 +7,8 @@ export enum MessageAction {
   KillDuck = "Action_KillDuck",
   LoseDuck = "Action_LoseDuck",
   RemoveDuck = "Action_RemoveDuck",
-  GetDuck = "Action_GetDuck",
+  ForgetDuck = "Action_ForgetDuck",
+  PickDuck = "Action_PickDuck",
   Laugh = "Action_Laugh",
   Reload = "Action_Reload"
 }

@@ -8,6 +8,7 @@ import TargetComponent from "../target/target.component";
 import DuckConfig from "./duck.config";
 import DuckState from "./duck.state";
 import { Message, MessageAction } from "../../../shared/models/message";
+import { DuckCommunicator } from "./duck.communicator";
 
 @Component({
   selector: 'duck',
@@ -33,10 +34,13 @@ export default class DuckComponent extends TargetComponent implements OnInit  {
   duckState = DuckState.FlyHorizontally;
   config = DuckConfig;
 
+  communicator: DuckCommunicator;
+
   ngOnInit() {
     super.ngOnInit();
     [this.nextPoint] = this.calculateWallPosition();
 
+    this.communicator = new DuckCommunicator(this.messanger, this.id);
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
   }
 
@@ -61,8 +65,8 @@ export default class DuckComponent extends TargetComponent implements OnInit  {
         break;
       case DuckState.Flee:
         if(param.toState === "void") break;
-        if(DuckState.Flee !== param.toState) this.communicator.loseMe({});
-        else this.communicator.deleteMe({});
+        if(DuckState.Flee !== param.toState) { this.communicator.loseMe({}); console.log("FLEE1") }
+        else { this.communicator.forgetMe({}); console.log("FLEE2") }
         break;
     }
   }

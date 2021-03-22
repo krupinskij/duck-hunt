@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
-import { GameStore } from "src/app/utils/store";
-import Level from "../../shared/models/level";
+
+import { GameStore } from "src/app/store/store";
+import { Level} from "../../shared/models/level";
 import { Message, MessageAction } from "../../shared/models/message";
-import { GameCommunicator } from "../../utils/game-communicator";
 import { Gun } from "../../utils/gun";
 import { TimerClock } from "../../utils/timer";
+import { GameCommunicator } from "./game.communicator";
 import gameConfig from "./game.config";
 
 @Component({
@@ -23,7 +24,7 @@ export default class GameComponent implements OnInit {
   gun: Gun;
 
   ngOnInit() {
-    this.level = gameConfig.levels[1];
+    this.level = gameConfig.levels[0];
 
     this.store = new GameStore(this.level);
 
@@ -52,13 +53,18 @@ export default class GameComponent implements OnInit {
     switch(action) {
       case MessageAction.RemoveDuck:
         this.store.removeDuck(state);
-        this.communicator.getDuck();
+        this.communicator.pickDuck();
         break;
+      case MessageAction.ForgetDuck:
+        this.store.removeDuck(state);
+        this.communicator.laugh();
+          break;
       case MessageAction.KillDuck:
         this.store.killDuck(state);
         break;
       case MessageAction.LoseDuck:
         this.store.loseDuck(state);
+        this.store.playing = false;
         break;
       case MessageAction.Reload:
         if(this.store.shouldReloadBatch) {

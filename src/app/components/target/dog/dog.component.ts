@@ -8,7 +8,7 @@ import TargetComponent from "../target/target.component";
 import { Message, MessageAction } from "../../../shared/models/message";
 import DogState from "./dog.state";
 import DogConfig from "./dog.config";
-import { fromEvent } from "rxjs";
+import { DogCommunicator } from "./dog.communicator";
 
 @Component({
   selector: 'dog',
@@ -28,12 +28,15 @@ export default class DogComponent extends TargetComponent implements OnInit  {
   dogState = DogState.Default;
   config = DogConfig;
 
+  communicator: DogCommunicator;
+
   private _front = true;
 
   ngOnInit() {
     super.ngOnInit();
     this.nextPoint = { X: 0, Y: 60 };
 
+    this.communicator = new DogCommunicator(this.messanger, this.id);
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
   }
 
@@ -108,6 +111,7 @@ export default class DogComponent extends TargetComponent implements OnInit  {
         case DogState.DucksUp:
         case DogState.LaughUp:
         case DogState.ShotUp:
+          console.log("laugh up");
           this.dogState = state;
           [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 40 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
@@ -166,8 +170,12 @@ export default class DogComponent extends TargetComponent implements OnInit  {
 
   private _messangerHandler({ payload: { action }}: Message) {
     switch(action) {
-      case MessageAction.GetDuck:
+      case MessageAction.PickDuck:
         this.setDogState(DogState.DuckUp);
+        break;
+      case MessageAction.Laugh:
+        console.log("aaaaa");
+        this.setDogState(DogState.LaughUp);
         break;
       case MessageAction.KillDuck:
         this.setDogState(DogState.ShotUp);

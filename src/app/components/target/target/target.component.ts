@@ -37,13 +37,10 @@ export default abstract class TargetComponent implements OnInit {
   @Input() id: number;
   @Input() messanger: Subject<Message>;
 
-  communicator: TargetCommunicator;
-
   private _gh = gameConfig.height;
   private _gw = gameConfig.width - 12;
 
   ngOnInit() {
-    this.communicator = new TargetCommunicator(this.messanger, this.id);
     this.time = 0;
   }
 

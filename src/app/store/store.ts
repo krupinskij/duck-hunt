@@ -1,12 +1,13 @@
 import { Observable, of } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
-import Level from "../shared/models/level";
+import { map } from "rxjs/operators";
+import { Level } from "../shared/models/level";
 import { Target, TargetState } from "../shared/models/target";
 
 export class GameStore {
   private _targetSubject: Observable<Target[]>;
   private _firstDuck: number;
   private _killed: number;
+  private _playing: boolean;
   private _losing: boolean;
   private _round: number;
   private _score: number;
@@ -41,7 +42,11 @@ export class GameStore {
   }
 
   get playing(): boolean {
-    return this._killed !== this._level.batch;
+    return this._killed !== this._level.batch && this._playing;
+  }
+
+  set playing(value: boolean) {
+    this._playing = value;
   }
 
   get losing() {
@@ -51,6 +56,7 @@ export class GameStore {
   resetBatch() {
     this._firstDuck += this._level.batch;
     this._killed = 0;
+    this._playing = true;
     this._losing = false;
 
     if(this._firstDuck >= this._level.all) {
