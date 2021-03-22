@@ -65,8 +65,8 @@ export default class DuckComponent extends TargetComponent implements OnInit  {
         break;
       case DuckState.Flee:
         if(param.toState === "void") break;
-        if(DuckState.Flee !== param.toState) { this.communicator.loseMe({}); console.log("FLEE1") }
-        else { this.communicator.forgetMe({}); console.log("FLEE2") }
+        if(DuckState.Flee !== param.toState) this.communicator.loseMe({});
+        else this.communicator.forgetMe({});
         break;
     }
   }

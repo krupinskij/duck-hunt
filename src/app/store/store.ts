@@ -7,6 +7,7 @@ export class GameStore {
   private _targetSubject: Observable<Target[]>;
   private _firstDuck: number;
   private _killed: number;
+  private _active: boolean;
   private _playing: boolean;
   private _losing: boolean;
   private _round: number;
@@ -41,6 +42,14 @@ export class GameStore {
     return !this._currentBatch.length;
   }
 
+  get active(): boolean {
+    return this._active;
+  }
+
+  set active(value: boolean) {
+    this._active = value;
+  }
+
   get playing(): boolean {
     return this._killed !== this._level.batch && this._playing;
   }
@@ -56,6 +65,7 @@ export class GameStore {
   resetBatch() {
     this._firstDuck += this._level.batch;
     this._killed = 0;
+    this._active = true;
     this._playing = true;
     this._losing = false;
 

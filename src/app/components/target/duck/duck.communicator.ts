@@ -24,7 +24,6 @@ export class DuckCommunicator extends Communicator {
   }
 
   forgetMe(state: {}) {
-    console.log("aaaa");
     this.send(MessageAction.ForgetDuck, state);
   }
 

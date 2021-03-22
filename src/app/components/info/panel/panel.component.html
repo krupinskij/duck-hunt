@@ -1,10 +1,10 @@
 <div class="panel">
-  <div>
+  <div *ngIf="show">
       <timer [timer]="timer"></timer>
       <shots [shots]="bullets"></shots>
   </div>
-  <hit [ducks]="ducks"></hit>
-  <div>
+  <hit *ngIf="show" [ducks]="ducks"></hit>
+  <div *ngIf="show">
     <round [round]="round"></round>
     <score [score]="score"></score>
 </div>

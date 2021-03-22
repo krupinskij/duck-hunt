@@ -12,6 +12,7 @@
     ></duck>
 
     <panel
+        [show]="store.active"
         [bullets]="gun.bullets"
         [ducks]="store.allTargets | async"
         [round]="store.round"

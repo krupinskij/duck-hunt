@@ -111,7 +111,6 @@ export default class DogComponent extends TargetComponent implements OnInit  {
         case DogState.DucksUp:
         case DogState.LaughUp:
         case DogState.ShotUp:
-          console.log("laugh up");
           this.dogState = state;
           [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 40 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
@@ -174,7 +173,6 @@ export default class DogComponent extends TargetComponent implements OnInit  {
         this.setDogState(DogState.DuckUp);
         break;
       case MessageAction.Laugh:
-        console.log("aaaaa");
         this.setDogState(DogState.LaughUp);
         break;
       case MessageAction.KillDuck:

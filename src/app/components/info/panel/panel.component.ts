@@ -12,4 +12,5 @@ export default class PanelComponent {
     @Input() score: number;
     @Input() round: number;
     @Input() timer: number;
+    @Input() show: boolean;
 }
