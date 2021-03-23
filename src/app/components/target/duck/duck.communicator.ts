@@ -1,16 +1,15 @@
-import { state } from "@angular/animations";
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { filter } from "rxjs/operators";
-import { Message, MessageAction, MessageSender } from "../shared/models/message";
-import { Communicator } from "./communicator";
+import { Message, MessageAction, MessageSender } from "../../../shared/models/message";
+import { Communicator } from "../../../utils/communicator";
 
-export class TargetCommunicator extends Communicator {
+export class DuckCommunicator extends Communicator {
   constructor(_subject: Subject<Message>, private _id: number) {
     super(_subject);
   }
 
   handleMessanger(_messageHandler: (message: Message) => void) {
-    this._subject.pipe(
+    this._subscription = this._subject.pipe(
       filter(message => message.sender === MessageSender.Game),
       filter(message => message.payload.state.includes(this._id))
     ).subscribe(_messageHandler);
@@ -24,13 +23,21 @@ export class TargetCommunicator extends Communicator {
     this.send(MessageAction.RemoveDuck, state);
   }
 
+  forgetMe(state: {}) {
+    this.send(MessageAction.ForgetDuck, state);
+  }
+
   loseMe(state: {}) {
     this.send(MessageAction.LoseDuck, state);
   }
 
-  protected send(action: MessageAction, state: unknown) {
+  reload() {
+    this.send(MessageAction.Reload)
+  }
+
+  protected send(action: MessageAction, state: unknown = {}) {
     this._subject.next({
-      sender: MessageSender.Duck, 
+      sender: MessageSender.Target, 
       payload: { 
         action, state: Object.assign({}, { id: this._id }, state)
       }

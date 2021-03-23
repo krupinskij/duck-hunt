@@ -1,33 +1,46 @@
 @import "./colors.scss";
 @import "./fonts.scss";
 
-@mixin info-box($text-color) {
-  background-color: $color-black;
-  color: $text-color;
-  border: 0.2vw solid $color-green;
-  border-radius: 0.5vw;
-  font-size: 1.5vw;
-  padding: 0.5vw;
-  margin: 0.5vw;
+@mixin box($background-color, $border-color, $radius) {
+  background-color: $background-color;
+  color: $white;
+  border: 3px solid $border-color;
+  border-radius: $radius;
+}
 
-  font-family: $font-press-start;
+@mixin info() {
+  font-size: 18px;
+  padding: 5px;
+  margin: 3px;
+
+  font-family: $info-font;
+
+  user-select: none;
+  
+  @media (max-width: 600px) {
+    font-size: 12px;    
+  }
 }
 
 @mixin left-align {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.3vw;
+  gap: 2px;
 }
 
 @mixin right-align {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.3vw;
+  gap: 2px;
 }
 
 @mixin image {
-  height: 1.5vw;
-  margin: 0.2vw;
+  height: 18px;
+  margin: 0 2px;
+
+  @media (max-width: 600px) {
+    height: 12px;    
+  }
 }

@@ -2,8 +2,13 @@
 @import '../../../styles/colors.scss';
 
 :host {
+  grid-row-start: span 2;
+}
+
+.info {
   @include left-align();
-  @include info-box($color-white);
+  @include box($black, $green, 8px);
+  @include info();
 }
 
 .hits {

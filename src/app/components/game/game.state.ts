@@ -1,5 +1,7 @@
 const enum GameState {
-  Lose = "GAME_Lose",
+  Unstarted = "GAME_Unstarted",
+  Started = "GAME_Started",
+  Active = "GAME_Active",
 }
 
 export default GameState;

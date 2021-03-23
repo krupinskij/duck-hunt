@@ -1,9 +1,11 @@
-<div class="bullets">
-  <img 
-    *ngFor="let bullet of bullets"
-    class="bullet"
-    src="../../../assets/info/bullet.svg" 
-    alt="bullet"
-  >
+<div [@show]="{ }" class="info">
+  <div class="bullets">
+    <img 
+      *ngFor="let bullet of bullets"
+      class="bullet"
+      src="../../../assets/info/bullet.svg" 
+      alt="bullet"
+    >
+  </div>
+  <div>SHOT</div>
 </div>
-<div>SHOT</div>

@@ -4,29 +4,28 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 import Image from "src/app/shared/models/image";
 import Point from "src/app/shared/models/point";
 
-import FlyingTargetState from "./flying-target.state";
+import { TargetState } from "./target.state";
 import gameConfig from "../../game/game.config"
 import { Subject } from "rxjs";
 import { Message } from "src/app/shared/models/message";
-import { TargetCommunicator } from "src/app/utils/target-communicator";
 
 @Component({
   template: '',
   animations: [
     trigger('changeImage', [
-      state(FlyingTargetState.State1, style({
+      state(TargetState.State1, style({
         backgroundImage: '{{ src1 }}'
       }), { params: { src1: '#', src2: '#'} }),
-      state(FlyingTargetState.State2, style({
+      state(TargetState.State2, style({
         backgroundImage: '{{ src2 }}'
       }), { params: { src1: '#', src2: '#'} }),
       transition('* => *', animate('0.1s'))
     ])
   ]
 })
-export default abstract class FlyingTargetComponent implements OnInit {
+export default abstract class TargetComponent implements OnInit {
 
-  flyingTargetState = FlyingTargetState.State1;
+  targetState = TargetState.State1;
 
   prevPoint: Point;
   nextPoint: Point;
@@ -37,28 +36,26 @@ export default abstract class FlyingTargetComponent implements OnInit {
   @Input() id: number;
   @Input() messanger: Subject<Message>;
 
-  communicator: TargetCommunicator;
-
   private _gh = gameConfig.height;
   private _gw = gameConfig.width - 12;
 
   ngOnInit() {
-    this.communicator = new TargetCommunicator(this.messanger, this.id);
+    this.time = 0;
   }
 
-  getFlyingTargetState(): void {
-    switch(this.flyingTargetState) {
-      case FlyingTargetState.State1:
-        this.setFlyingTargetState(FlyingTargetState.State2);
+  getTargetState(): void {
+    switch(this.targetState) {
+      case TargetState.State1:
+        this.setTargetState(TargetState.State2);
         break;
-      case FlyingTargetState.State2:
-        this.setFlyingTargetState(FlyingTargetState.State1);
+      case TargetState.State2:
+        this.setTargetState(TargetState.State1);
         break;
     }
   }
 
-  setFlyingTargetState(state: FlyingTargetState): void {
-    this.flyingTargetState = state;
+  setTargetState(state: TargetState): void {
+    this.targetState = state;
   }
     
   calculateBasePosition(currPoint?: Point): [Point, Point] {

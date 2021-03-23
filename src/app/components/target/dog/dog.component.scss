@@ -1,0 +1,18 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/fonts.scss";
+
+.dog {
+  width: 35vw;
+  height: 35vh;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: 35vw 35vh;
+}
+
+.dog-front {
+  z-index: 1;
+}
+
+.dog-back {
+  z-index: 0;
+}

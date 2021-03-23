@@ -1,5 +1,5 @@
 export enum MessageSender {
-  Duck = "Sender_Duck",
+  Target = "Sender_Target",
   Game = "Sender_Game"
 }
 
@@ -7,7 +7,10 @@ export enum MessageAction {
   KillDuck = "Action_KillDuck",
   LoseDuck = "Action_LoseDuck",
   RemoveDuck = "Action_RemoveDuck",
-  NoBullets = "Action_NoBullets"
+  ForgetDuck = "Action_ForgetDuck",
+  PickDuck = "Action_PickDuck",
+  Laugh = "Action_Laugh",
+  Reload = "Action_Reload"
 }
 
 interface MessagePayload {

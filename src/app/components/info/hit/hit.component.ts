@@ -1,11 +1,16 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { animate, state, style, transition, trigger } from "@angular/animations";
+import { Component, Input, OnChanges } from "@angular/core";
 
 import { Target, TargetState } from "src/app/shared/models/target";
 
 @Component({
     selector: 'hit',
     templateUrl: './hit.component.html',
-    styleUrls: ['./hit.component.scss']
+    styleUrls: ['./hit.component.scss'],
+    animations: [ trigger('show', [ 
+      state('void', style({ opacity: 0 })),
+      transition(`* => *`, animate('1s')),
+    ]) ]
 })
 export default class HitComponent implements OnChanges {
   @Input() ducks: Target[];

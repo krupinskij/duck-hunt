@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from "@angular/animations";
 import { Component, Input } from "@angular/core";
 import { Target } from "../../../shared/models/target";
 
@@ -12,4 +13,5 @@ export default class PanelComponent {
     @Input() score: number;
     @Input() round: number;
     @Input() timer: number;
+    @Input() show: boolean;
 }

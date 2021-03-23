@@ -1,7 +1,7 @@
 import { Subject } from "rxjs";
 import { filter } from "rxjs/operators";
-import { Message, MessageAction, MessageSender } from "../shared/models/message";
-import { Communicator } from "./communicator";
+import { Message, MessageAction, MessageSender } from "../../shared/models/message";
+import { Communicator } from "../../utils/communicator";
 
 export class GameCommunicator extends Communicator {
   constructor(_subject: Subject<Message>) {
@@ -9,8 +9,8 @@ export class GameCommunicator extends Communicator {
   }
 
   handleMessanger(_messageHandler: (message: Message) => void) {
-    this._subject.pipe(
-      filter(message => message.sender === MessageSender.Duck)
+    this._subscription = this._subject.pipe(
+      filter(message => message.sender === MessageSender.Target)
     ).subscribe(_messageHandler);
   }
 
@@ -20,6 +20,14 @@ export class GameCommunicator extends Communicator {
 
   loseDuck(state: number[]) {
     this.send(MessageAction.LoseDuck, state);
+  }
+
+  pickDuck() {
+    this.send(MessageAction.PickDuck, [-1]);
+  }
+
+  laugh() {
+    this.send(MessageAction.Laugh, [-1]);
   }
 
   protected send(action: MessageAction, state: unknown) {
