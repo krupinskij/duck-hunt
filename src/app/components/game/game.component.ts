@@ -8,6 +8,7 @@ import { Gun } from "../../utils/gun";
 import { TimerClock } from "../../utils/timer";
 import { GameCommunicator } from "./game.communicator";
 import gameConfig from "./game.config";
+import GameState from "./game.state";
 
 @Component({
     selector: 'game',
@@ -16,6 +17,7 @@ import gameConfig from "./game.config";
 })
 export default class GameComponent implements OnInit {
   gameConfig = gameConfig;
+  gameState: GameState = GameState.Unstarted;
 
   level: Level;
   store: GameStore;
@@ -25,19 +27,7 @@ export default class GameComponent implements OnInit {
 
   ngOnInit() {
     this.level = gameConfig.levels[0];
-
-    this.store = new GameStore(this.level);
-
-    this.communicator = new GameCommunicator(new Subject<Message>());
-    this.communicator.handleMessanger(this._messangerHandler.bind(this));
-
-    this.timerClock = new TimerClock(1000, this.level.timeout);
-
-    this.gun = new Gun(this.level.bullets);
-    this.gun.handleGun(
-      id => this.communicator.killDuck([ id ]),
-      () => this.communicator.loseDuck(this.store.currentBatch)
-    )
+    this.resetGame();
   }
 
   getNewBatch() {
@@ -67,6 +57,7 @@ export default class GameComponent implements OnInit {
         this.store.playing = false;
         break;
       case MessageAction.Reload:
+        this.gameState = GameState.Active 
         if(this.store.shouldReloadBatch) {
           this.getNewBatch();
         }
@@ -81,4 +72,31 @@ export default class GameComponent implements OnInit {
       'game-play': !this.store.losing
     }
   }
+
+  startGame(level: number) {
+    if(!Number.isInteger(level)) return;
+     
+    this.gameState = GameState.Started;
+    this.level = gameConfig.levels[level];
+    this.resetGame();
+  }
+
+  resetGame() {
+    this.store = new GameStore(this.level);
+
+    this.communicator = new GameCommunicator(new Subject<Message>());
+    this.communicator.handleMessanger(this._messangerHandler.bind(this));
+
+    this.timerClock = new TimerClock(1000, this.level.timeout);
+
+    this.gun = new Gun(this.level.bullets);
+    this.gun.handleGun(
+      id => this.communicator.killDuck([ id ]),
+      () => this.communicator.loseDuck(this.store.currentBatch)
+    )
+  } 
+
+  get isGameUnstarted(): boolean { return this.gameState === GameState.Unstarted }
+  get isGameStarted(): boolean { return this.gameState === GameState.Started }
+  get isGameActive(): boolean { return this.gameState === GameState.Active }
 }

@@ -1,9 +1,10 @@
 @import '../../../styles/mixins.scss';
 @import '../../../styles/colors.scss';
 
-:host {
+.info {
   @include left-align();
-  @include info-box($color-white);
+  @include box($black, $green, 0.5vw);
+  @include info();
 }
 
 .bullets {

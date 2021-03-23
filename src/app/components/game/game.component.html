@@ -2,6 +2,7 @@
     [ngClass]="gameClasses"
 >
     <dog
+        *ngIf="!isGameUnstarted"
         [id]="-1"
         [messanger]="communicator.messanger"
     ></dog>
@@ -11,8 +12,13 @@
         [messanger]="communicator.messanger"
     ></duck>
 
+    <menu 
+        *ngIf="isGameUnstarted"
+        (selected)=startGame($event)
+    ></menu>
+
     <panel
-        [show]="store.active"
+        [show]="isGameActive"
         [bullets]="gun.bullets"
         [ducks]="store.allTargets | async"
         [round]="store.round"

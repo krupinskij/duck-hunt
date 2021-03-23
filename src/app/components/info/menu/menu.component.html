@@ -1,0 +1,14 @@
+<div 
+  class="menu"
+  [@level]="{value: level}"
+  (@level.done)="emitLevel()"
+>
+  <div class="title">DUCK HUNT</div>
+  <div class="subtitle">ANGULAR</div>
+
+  <ul class="levels">
+    <li class="option" (click)="setLevel(0)">EASY</li>
+    <li class="option" (click)="setLevel(1)">MEDIUM</li>
+    <li class="option" (click)="setLevel(2)">HARD</li>
+  </ul>
+</div>

@@ -1,11 +1,11 @@
-<div class="panel">
-  <div *ngIf="show">
-      <timer [timer]="timer"></timer>
-      <shots [shots]="bullets"></shots>
+<div 
+  class="panel"
+>
+  <div class="panel-info">
+    <timer *ngIf="show" [timer]="timer"></timer>
+    <hit *ngIf="show" [ducks]="ducks"></hit>
+    <round *ngIf="show" [round]="round"></round>
+    <shots *ngIf="show" [shots]="bullets"></shots>
+    <score *ngIf="show" [score]="score"></score>
   </div>
-  <hit *ngIf="show" [ducks]="ducks"></hit>
-  <div *ngIf="show">
-    <round [round]="round"></round>
-    <score [score]="score"></score>
-</div>
 </div>
