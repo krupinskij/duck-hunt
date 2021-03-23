@@ -7,7 +7,7 @@
         [messanger]="communicator.messanger"
     ></dog>
     <duck
-        *ngFor="let duck of store.currentBatch"
+        *ngFor="let duck of store?.currentBatch"
         [id]="duck"
         [messanger]="communicator.messanger"
     ></duck>
@@ -19,10 +19,10 @@
 
     <panel
         [show]="isGameActive"
-        [bullets]="gun.bullets"
-        [ducks]="store.allTargets | async"
-        [round]="store.round"
-        [score]="store.score"
-        [timer]="timerClock.timer"
+        [bullets]="gun?.bullets"
+        [ducks]="store?.allTargets | async"
+        [round]="store?.round"
+        [score]="store?.score"
+        [timer]="timerClock?.timer"
     ></panel>
 </div>

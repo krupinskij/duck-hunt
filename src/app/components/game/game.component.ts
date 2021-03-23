@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Subject } from "rxjs";
 
 import { GameStore } from "src/app/store/store";
@@ -15,7 +15,7 @@ import GameState from "./game.state";
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss']
 })
-export default class GameComponent implements OnInit {
+export default class GameComponent {
   gameConfig = gameConfig;
   gameState: GameState = GameState.Unstarted;
 
@@ -25,9 +25,24 @@ export default class GameComponent implements OnInit {
   timerClock: TimerClock; 
   gun: Gun;
 
-  ngOnInit() {
-    this.level = gameConfig.levels[0];
-    this.resetGame();
+  startGame(level: number) {
+    if(!Number.isInteger(level)) return;
+     
+    this.gameState = GameState.Started;
+    this.level = gameConfig.levels[level];
+    
+    this.store = new GameStore(this.level);
+
+    this.communicator = new GameCommunicator(new Subject<Message>());
+    this.communicator.handleMessanger(this._messangerHandler.bind(this));
+
+    this.timerClock = new TimerClock(1000, this.level.timeout);
+
+    this.gun = new Gun(this.level.bullets);
+    this.gun.handleGun(
+      id => this.communicator.killDuck([ id ]),
+      () => this.communicator.loseDuck(this.store.currentBatch)
+    )
   }
 
   getNewBatch() {
@@ -68,33 +83,10 @@ export default class GameComponent implements OnInit {
   get gameClasses(): {} {
     return {
       game: true,
-      'game-lose': this.store.losing,
-      'game-play': !this.store.losing
+      'game-lose': this.store?.losing,
+      'game-play': !this.store?.losing
     }
   }
-
-  startGame(level: number) {
-    if(!Number.isInteger(level)) return;
-     
-    this.gameState = GameState.Started;
-    this.level = gameConfig.levels[level];
-    this.resetGame();
-  }
-
-  resetGame() {
-    this.store = new GameStore(this.level);
-
-    this.communicator = new GameCommunicator(new Subject<Message>());
-    this.communicator.handleMessanger(this._messangerHandler.bind(this));
-
-    this.timerClock = new TimerClock(1000, this.level.timeout);
-
-    this.gun = new Gun(this.level.bullets);
-    this.gun.handleGun(
-      id => this.communicator.killDuck([ id ]),
-      () => this.communicator.loseDuck(this.store.currentBatch)
-    )
-  } 
 
   get isGameUnstarted(): boolean { return this.gameState === GameState.Unstarted }
   get isGameStarted(): boolean { return this.gameState === GameState.Started }
