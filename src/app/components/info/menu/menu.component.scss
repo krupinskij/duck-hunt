@@ -13,7 +13,7 @@
 .menu {
   width: 60%;
   padding: 2% 5%;
-  margin: 50px 15% 0;
+  margin: 30px 15% 0;
   
   @include box($blue-darken, $white, 30px);
 
@@ -36,7 +36,21 @@
   font-size: 30px;
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 20px 0 0 0;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 60px;
+  } 
+  
+  .subtitle {
+    font-size: 30px;
+  }
+
+  .levels {
+    font-size: 20px;
+  }
 }
 
 .option:hover::before {

@@ -34,7 +34,7 @@ export default class DogComponent extends TargetComponent implements OnInit  {
 
   ngOnInit() {
     super.ngOnInit();
-    this.nextPoint = { X: 0, Y: 60 };
+    this.nextPoint = { X: 0, Y: 65 };
 
     this.communicator = new DogCommunicator(this.messanger, this.id);
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
@@ -82,28 +82,28 @@ export default class DogComponent extends TargetComponent implements OnInit  {
       switch(state) {
         case DogState.Walk:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 29.9, Y: 60 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 29.9, Y: 65 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
           this.time = 3;
           break;
         case DogState.Found:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 60 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 65 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
           this.time = 0.5;
           break;
 
         case DogState.JumpUp:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 35 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 40 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
-          this.time = 1;
+          this.time = 0.7;
           break;
         case DogState.JumpDown:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 80 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 75 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
-          this.time = 1;
+          this.time = 0.7;
           this._front = false;
           break;
 
@@ -112,18 +112,18 @@ export default class DogComponent extends TargetComponent implements OnInit  {
         case DogState.LaughUp:
         case DogState.ShotUp:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 40 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 50 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
-          this.time = 2;
+          this.time = 1;
           break;
         case DogState.DuckDown:
         case DogState.DucksDown:
         case DogState.LaughDown:
         case DogState.ShotDown:
           this.dogState = state;
-          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 80 }, this.nextPoint];
+          [this.nextPoint, this.prevPoint] = [{ X: 30, Y: 75 }, this.nextPoint];
           this.image = this.setImage(this.prevPoint, this.nextPoint, state);
-          this.time = 2;
+          this.time = 1;
           break;
       }
   }

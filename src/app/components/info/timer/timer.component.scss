@@ -3,6 +3,6 @@
 
 .info {
   @include left-align();
-  @include box($black, $green, 0.5vw);
+  @include box($black, $green, 8px);
   @include info();
 }
