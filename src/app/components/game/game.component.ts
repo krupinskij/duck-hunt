@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { Subject } from "rxjs";
 
 import { GameStore } from "src/app/store/store";
@@ -15,7 +15,7 @@ import GameState from "./game.state";
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss']
 })
-export default class GameComponent {
+export default class GameComponent implements OnDestroy {
   gameConfig = gameConfig;
   gameState: GameState = GameState.Unstarted;
 
@@ -24,6 +24,10 @@ export default class GameComponent {
   communicator: GameCommunicator;
   timerClock: TimerClock; 
   gun: Gun;
+  
+  ngOnDestroy() {
+    this.communicator.disconnect();
+  }
 
   startGame(level: number) {
     if(!Number.isInteger(level)) return;

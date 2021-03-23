@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 import Point from "src/app/shared/models/point";
@@ -23,7 +23,7 @@ import { DogCommunicator } from "./dog.communicator";
     ])
   ]
 })
-export default class DogComponent extends TargetComponent implements OnInit  {
+export default class DogComponent extends TargetComponent implements OnInit, OnDestroy  {
 
   dogState = DogState.Default;
   config = DogConfig;
@@ -38,6 +38,10 @@ export default class DogComponent extends TargetComponent implements OnInit  {
 
     this.communicator = new DogCommunicator(this.messanger, this.id);
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
+  }
+
+  ngOnDestroy() {
+    this.communicator.disconnect();
   }
 
   getDogState(param: any) {

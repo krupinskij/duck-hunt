@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 import Point from "src/app/shared/models/point";
@@ -29,7 +29,7 @@ import { DuckCommunicator } from "./duck.communicator";
     ])
   ]
 })
-export default class DuckComponent extends TargetComponent implements OnInit  {
+export default class DuckComponent extends TargetComponent implements OnInit, OnDestroy {
 
   duckState = DuckState.FlyHorizontally;
   config = DuckConfig;
@@ -42,6 +42,10 @@ export default class DuckComponent extends TargetComponent implements OnInit  {
 
     this.communicator = new DuckCommunicator(this.messanger, this.id);
     this.communicator.handleMessanger(this._messangerHandler.bind(this));
+  }
+
+  ngOnDestroy() {
+    this.communicator.disconnect();
   }
 
   getDuckState(param: any) {

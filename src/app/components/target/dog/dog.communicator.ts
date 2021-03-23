@@ -9,7 +9,7 @@ export class DogCommunicator extends Communicator {
   }
 
   handleMessanger(_messageHandler: (message: Message) => void) {
-    this._subject.pipe(
+    this._subscription = this._subject.pipe(
       filter(message => message.sender === MessageSender.Game),
       filter(message => message.payload.state.includes(this._id))
     ).subscribe(_messageHandler);
