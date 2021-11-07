@@ -2,7 +2,7 @@
 
 Duck Hunt game written in Angular
 
-# Website
+## Website
 
 https://krupinskij.github.io/duck-hunt/
 
